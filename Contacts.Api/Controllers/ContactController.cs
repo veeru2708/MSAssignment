@@ -1,6 +1,7 @@
 ﻿using Contacts.Api.Domain;
 using Contacts.Api.Models;
 using Contacts.Api.Services.Interfaces;
+using Contacts.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -28,11 +29,17 @@ namespace Contacts.Api.Controllers
             _contactService = contactService;
         }
         // GET: api/<ContactController>
+        /// <summary>
+        /// Returns the paged contacts
+        /// </summary>
+        /// <param name="contactQueryParameters"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] ContactQueryParameters contactQueryParameters)
         {
             var contacts = await _contactService.GetContacts(contactQueryParameters);
-            
+
+           
             var metadata = new
             {
                 contacts.TotalCount,
@@ -151,5 +158,8 @@ namespace Contacts.Api.Controllers
 
             return NoContent();
         }
+
+        
     }
+    
 }

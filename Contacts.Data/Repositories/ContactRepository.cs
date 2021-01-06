@@ -64,7 +64,16 @@ namespace Contacts.Data.Repositories.Interface
 
         public async Task<PagedList<Contact>> GetContacts(ContactQueryParameters contactQueryParameters)
         {
-            return PagedList<Contact>.ToPagedList(FindAll(),
+
+            var contacts = FindAll();
+            if(!string.IsNullOrEmpty(contactQueryParameters.FirstName))
+                SearchByFirstName(ref contacts, contactQueryParameters.FirstName);
+            if (!string.IsNullOrEmpty(contactQueryParameters.LastName))
+                SearchByLastName(ref contacts, contactQueryParameters.LastName);
+            if (contactQueryParameters.PhoneNumber > 0 )
+                SearchByNumber(ref contacts, contactQueryParameters.PhoneNumber);
+
+            return PagedList<Contact>.ToPagedList(contacts,
                      contactQueryParameters.PageNumber,
                      contactQueryParameters.PageSize);
         }
@@ -84,6 +93,27 @@ namespace Contacts.Data.Repositories.Interface
 
                 throw;
             }
+        }
+
+        private void SearchByFirstName(ref IQueryable<Contact> contacts, string firstName)
+        {
+            if (!contacts.Any() || string.IsNullOrWhiteSpace(firstName))
+                return;
+            contacts = contacts.Where(c => c.FirstName.ToLower().Contains(firstName.Trim().ToLower()));
+        }
+
+        private void SearchByLastName(ref IQueryable<Contact> contacts, string LastName)
+        {
+            if (!contacts.Any() || string.IsNullOrWhiteSpace(LastName))
+                return;
+            contacts = contacts.Where(c => c.LastName.ToLower().Contains(LastName.Trim().ToLower()));
+        }
+
+        private void SearchByNumber(ref IQueryable<Contact> contacts, double phoneNumber)
+        {
+            if (!contacts.Any() || phoneNumber == 0)
+                return;
+            contacts = contacts.Where(c => c.PhoneNumber == phoneNumber);
         }
 
     }
