@@ -7,7 +7,9 @@ namespace Contacts.Data.Repositories
         private ApplicationDbContext _repoContext;
 
         private IContactRepository _contact;
-        
+
+        private IContactGroupRepository _contactGroup;
+
 
         public IContactRepository contact
         {
@@ -22,7 +24,20 @@ namespace Contacts.Data.Repositories
             }
         }
 
-       
+        public IContactGroupRepository contactGroup
+        {
+            get
+            {
+                if (_contactGroup == null)
+                {
+                    _contactGroup = new ContactGroupRepository(_repoContext);
+                }
+
+                return _contactGroup;
+            }
+        }
+
+
 
         public RepositoryWrapper(ApplicationDbContext repositoryContext)
         {

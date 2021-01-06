@@ -52,7 +52,7 @@ namespace Contacts.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            _logger.LogInformation($"Returned {contacts.TotalCount} owners from database.");
+            _logger.LogInformation($"Returned {contacts.TotalCount} contacts from database.");
 
             return Ok(contacts);
         }

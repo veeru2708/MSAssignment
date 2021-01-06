@@ -18,11 +18,11 @@ namespace Contacts.Data.Repositories
 
 
 
-        public async Task<bool> AddContactGroup(ContactGroup contact)
+        public async Task<bool> AddContactGroup(ContactGroup contactGroup)
         {
             try
             {
-                Create(contact);
+                Create(contactGroup);
             }
             catch (Exception ex)
             {
@@ -31,14 +31,14 @@ namespace Contacts.Data.Repositories
             return true;
         }
 
-        public async Task<bool> EditContactGroup(ContactGroup cont)
+        public async Task<bool> EditContactGroup(ContactGroup contactGroup)
         {
             try
             {
-                var dbContactGroup = FindByCondition(contact => contact.ContactGroupId.Equals(cont.ContactGroupId))
+                var dbContactGroup = FindByCondition(contact => contact.ContactGroupId.Equals(contactGroup.ContactGroupId))
                .DefaultIfEmpty(new ContactGroup())
                .FirstOrDefault();
-                dbContactGroup.ContactGroupName = cont.ContactGroupName;
+                dbContactGroup.ContactGroupName = contactGroup.ContactGroupName;
                 
                 Update(dbContactGroup);
             }
@@ -49,18 +49,25 @@ namespace Contacts.Data.Repositories
             return true;
         }
 
-        public async Task<ContactGroup> GetContactGroup(int contactId)
+        public async Task<ContactGroup> GetContactGroup(int contactGroupId)
         {
-            return FindByCondition(contact => contact.ContactGroupId.Equals(contactId))
+            return FindByCondition(contactGroup => contactGroup.ContactGroupId.Equals(contactGroupId))
                 .DefaultIfEmpty(new ContactGroup())
                 .FirstOrDefault();
         }
 
         public async Task<ContactGroup> GetContactGroups(Func<ContactGroup, bool> condition)
         {
-            return FindByCondition(contact => contact.ContactGroupId.Equals(condition))
+            return FindByCondition(contactGroup => contactGroup.ContactGroupId.Equals(condition))
                .DefaultIfEmpty(new ContactGroup())
                .FirstOrDefault();
+        }
+
+        public async Task<ContactGroup> GetContactGroupById(int contactGroupId)
+        {
+            return FindByCondition(contactGroup => contactGroup.ContactGroupId.Equals(contactGroupId))
+                .DefaultIfEmpty(new ContactGroup())
+                .FirstOrDefault();
         }
 
         public async Task<PagedList<ContactGroup>> GetContactGroups(ContactGroupQueryParameters contactQueryParameters)

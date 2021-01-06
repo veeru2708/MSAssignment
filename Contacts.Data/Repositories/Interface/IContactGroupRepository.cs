@@ -17,6 +17,8 @@ namespace Contacts.Data.Repositories
 
         Task<ContactGroup> GetContactGroup(int contactId);
 
+        Task<ContactGroup> GetContactGroupById(int contactGroupId);
+
         Task<bool> DeleteContactGroup(int contactId);
     }
 }

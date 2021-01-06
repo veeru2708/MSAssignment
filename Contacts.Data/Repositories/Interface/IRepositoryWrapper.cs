@@ -3,7 +3,9 @@
     public interface IRepositoryWrapper
     {
         IContactRepository contact { get; }
-        
+
+        IContactGroupRepository contactGroup { get; }
+
         void Save();
     }
 }

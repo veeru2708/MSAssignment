@@ -1,5 +1,9 @@
-﻿using Contacts.Data.Models;
+﻿using Contacts.Api.Models;
+using Contacts.Api.Services.Interfaces;
+using Contacts.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +18,34 @@ namespace Contacts.Api.Controllers
     [ApiController]
     public class ContactGroupController : ControllerBase
     {
+        private readonly IContactGroupService _contactGroupService;
+        private readonly ILogger<ContactGroupController> _logger;
+
+        public ContactGroupController(IContactGroupService contactGroupService, ILogger<ContactGroupController> logger)
+        {
+            this._contactGroupService = contactGroupService;
+            this._logger = logger;
+        }
         // GET: api/<ContactGroupController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get([FromQuery] ContactGroupQueryParameters contactGroupQueryParameters)
         {
-            return new string[] { "value1", "value2" };
+            var contactGroups = await _contactGroupService.GetContactGroups(contactGroupQueryParameters);
+            var metadata = new
+            {
+                contactGroups.TotalCount,
+                contactGroups.PageSize,
+                contactGroups.CurrentPage,
+                contactGroups.TotalPages,
+                contactGroups.HasNext,
+                contactGroups.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            _logger.LogInformation($"Returned {contactGroups.TotalCount} contacts from database.");
+
+            return Ok(contactGroups);
         }
 
         // GET api/<ContactGroupController>/5
