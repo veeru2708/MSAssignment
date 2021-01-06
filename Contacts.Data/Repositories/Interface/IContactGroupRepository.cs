@@ -7,16 +7,16 @@ namespace Contacts.Data.Repositories
 {
     public interface IContactGroupRepository
     {
-        Task<bool> AddContactGroup(Contact contact);
+        Task<bool> AddContactGroup(ContactGroup contact);
 
-        Task<bool> EditContactGroup(Contact cont);
+        Task<bool> EditContactGroup(ContactGroup cont);
 
         Task<PagedList<ContactGroup>> GetContactGroups(ContactGroupQueryParameters contactQueryParameters);
 
-        Task<Contact> GetContactGroups(Func<Contact, bool> condition);
+        Task<ContactGroup> GetContactGroups(Func<ContactGroup, bool> condition);
 
-        Task<Contact> GetContactGroup(int contactId);
+        Task<ContactGroup> GetContactGroup(int contactId);
 
-        Task<bool> DeleteContact(int contactId);
+        Task<bool> DeleteContactGroup(int contactId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contacts.Api.Domain;
+using Contacts.Api.Models;
 using Contacts.Api.Services.Interfaces;
 using Contacts.Data.Models;
 using Contacts.Data.Repositories.Interface;

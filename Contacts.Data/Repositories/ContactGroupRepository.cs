@@ -1,21 +1,24 @@
-﻿using Contacts.Data.Models;
+﻿using Contacts.Api.Models;
+using Contacts.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Contacts.Data.Repositories
 {
     class ContactGroupRepository : RepositoryBase<ContactGroup>, IContactGroupRepository
     {
 
-        public ContactRepository(ApplicationDbContext context) : base(context)
+        public ContactGroupRepository(ApplicationDbContext context) : base(context)
         {
 
         }
 
 
 
-        public async Task<bool> AddContact(Contact contact)
+        public async Task<bool> AddContactGroup(ContactGroup contact)
         {
             try
             {
@@ -28,17 +31,16 @@ namespace Contacts.Data.Repositories
             return true;
         }
 
-        public async Task<bool> EditContact(Contact cont)
+        public async Task<bool> EditContactGroup(ContactGroup cont)
         {
             try
             {
-                var dbContact = FindByCondition(contact => contact.Id.Equals(cont.Id))
-               .DefaultIfEmpty(new Contact())
+                var dbContactGroup = FindByCondition(contact => contact.ContactGroupId.Equals(cont.ContactGroupId))
+               .DefaultIfEmpty(new ContactGroup())
                .FirstOrDefault();
-                dbContact.FirstName = cont.FirstName;
-                dbContact.LastName = cont.LastName;
-                dbContact.PhoneNumber = cont.PhoneNumber;
-                Update(dbContact);
+                dbContactGroup.ContactGroupName = cont.ContactGroupName;
+                
+                Update(dbContactGroup);
             }
             catch (Exception ex)
             {
@@ -47,33 +49,33 @@ namespace Contacts.Data.Repositories
             return true;
         }
 
-        public async Task<Contact> GetContactById(int contactId)
+        public async Task<ContactGroup> GetContactGroup(int contactId)
         {
-            return FindByCondition(contact => contact.Id.Equals(contactId))
-                .DefaultIfEmpty(new Contact())
+            return FindByCondition(contact => contact.ContactGroupId.Equals(contactId))
+                .DefaultIfEmpty(new ContactGroup())
                 .FirstOrDefault();
         }
 
-        public async Task<Contact> GetContact(Func<Contact, bool> condition)
+        public async Task<ContactGroup> GetContactGroups(Func<ContactGroup, bool> condition)
         {
-            return FindByCondition(contact => contact.Id.Equals(condition))
-               .DefaultIfEmpty(new Contact())
+            return FindByCondition(contact => contact.ContactGroupId.Equals(condition))
+               .DefaultIfEmpty(new ContactGroup())
                .FirstOrDefault();
         }
 
-        public async Task<PagedList<Contact>> GetContacts(ContactQueryParameters contactQueryParameters)
+        public async Task<PagedList<ContactGroup>> GetContactGroups(ContactGroupQueryParameters contactQueryParameters)
         {
-            return PagedList<Contact>.ToPagedList(FindAll(),
+            return PagedList<ContactGroup>.ToPagedList(FindAll(),
                      contactQueryParameters.PageNumber,
                      contactQueryParameters.PageSize);
         }
 
-        public async Task<bool> DeleteContact(int contactId)
+        public async Task<bool> DeleteContactGroup(int contactId)
         {
             try
             {
-                var dbContact = FindByCondition(contact => contact.Id.Equals(contactId))
-               .DefaultIfEmpty(new Contact())
+                var dbContact = FindByCondition(contactGroup => contactGroup.ContactGroupId.Equals(contactId))
+               .DefaultIfEmpty(new ContactGroup())
                .FirstOrDefault();
                 Delete(dbContact);
                 return true;

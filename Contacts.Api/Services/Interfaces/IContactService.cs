@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contacts.Api.Domain;
+using Contacts.Api.Models;
 using Contacts.Data.Models;
 
 namespace Contacts.Api.Services.Interfaces

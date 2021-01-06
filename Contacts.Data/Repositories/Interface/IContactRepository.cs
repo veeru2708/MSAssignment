@@ -1,4 +1,5 @@
-﻿using Contacts.Data.Models;
+﻿using Contacts.Api.Models;
+using Contacts.Data.Models;
 using System;
 using System.Threading.Tasks;
 

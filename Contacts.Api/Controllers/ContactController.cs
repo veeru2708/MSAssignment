@@ -1,4 +1,5 @@
 ﻿using Contacts.Api.Domain;
+using Contacts.Api.Models;
 using Contacts.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
