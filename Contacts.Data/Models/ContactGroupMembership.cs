@@ -1,6 +1,6 @@
 ﻿namespace Contacts.Data.Models
 {
-    class ContactGroupMembership
+    public class ContactGroupMembership
     {
         public int GroupMembershipId { get; set; }
 

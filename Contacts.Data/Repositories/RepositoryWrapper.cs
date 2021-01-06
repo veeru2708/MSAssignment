@@ -10,6 +10,8 @@ namespace Contacts.Data.Repositories
 
         private IContactGroupRepository _contactGroup;
 
+        private IContactGroupMembershipRepository _contactGroupMembership;
+
 
         public IContactRepository contact
         {
@@ -34,6 +36,19 @@ namespace Contacts.Data.Repositories
                 }
 
                 return _contactGroup;
+            }
+        }
+
+        public IContactGroupMembershipRepository contactGroupMembership
+        {
+            get
+            {
+                if (_contactGroupMembership == null)
+                {
+                    _contactGroupMembership = new ContactGroupMembershipRepository(_repoContext);
+                }
+
+                return _contactGroupMembership;
             }
         }
 

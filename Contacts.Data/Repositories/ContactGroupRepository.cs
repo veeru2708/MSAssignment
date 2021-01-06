@@ -11,6 +11,8 @@ namespace Contacts.Data.Repositories
     class ContactGroupRepository : RepositoryBase<ContactGroup>, IContactGroupRepository
     {
 
+        private const string ContactType = "Contact";
+        private const string ContactGroupType = "ContactGroup";
         public ContactGroupRepository(ApplicationDbContext context) : base(context)
         {
 
@@ -94,5 +96,6 @@ namespace Contacts.Data.Repositories
             }
         }
 
+       
     }
 }

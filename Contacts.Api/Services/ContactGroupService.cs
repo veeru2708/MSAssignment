@@ -62,5 +62,11 @@ namespace Contacts.Api.Services
 
             return contact;
         }
+
+        public async Task<bool> AddContactToContactGroup(int contactId, int contactGroupId)
+        {
+            var contact = await _repositoryWrapper.contactGroupMembership.AddContactToContactGroup(contactId, contactGroupId);
+            return contact;
+        }
     }
 }
