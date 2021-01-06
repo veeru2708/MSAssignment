@@ -44,5 +44,28 @@ namespace Contacts.Api.Controllers
         public void Delete(int contactGroupId)
         {
         }
+
+
+        [HttpPost]
+        [Route("{ContactGroupId}/Contact/{ContactId}")]
+        public void AddContactToContactGroup(int ContactId, int ContactGroupId)
+        {
+
+        }
+
+        [HttpPost]
+        [Route("{ContactGroupId}/Contact/{ContactId}")]
+        public void RemoveContactToContactGroup(int ContactId, int ContactGroupId)
+        {
+
+        }
+
+        [HttpPost]
+        [Route("{ParentContactGroupId}/ContactGroup/{ChildContactGroupId}")]
+        public void RemoveContactGroupToContactGroup(int ChildContactGroupId, int ParentContactGroupId)
+        {
+
+        }
+
     }
 }
