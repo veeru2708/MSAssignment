@@ -137,13 +137,13 @@ namespace Contacts.Api.Controllers
         }
 
         // DELETE api/<ContactController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{contactId}")]
+        public async Task<IActionResult> Delete(int contactId)
         {
-            var contact = await  _contactService.GetContactById(id);
+            var contact = await  _contactService.GetContactById(contactId);
             if (contact.Id> 0)
             {
-                _logger.LogError($"Contact with id: {id}, hasn't been found in db.");
+                _logger.LogError($"Contact with id: {contactId}, hasn't been found in db.");
                 return NotFound();
             }
 

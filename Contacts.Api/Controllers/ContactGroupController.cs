@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Contacts.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,27 +21,27 @@ namespace Contacts.Api.Controllers
         }
 
         // GET api/<ContactGroupController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{contactGroupId}")]
+        public string Get(int contactGroupId)
         {
             return "value";
         }
 
         // POST api/<ContactGroupController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] ContactGroup value)
         {
         }
 
         // PUT api/<ContactGroupController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{contactGroupId}")]
+        public void Put(int contactGroupId, [FromBody] ContactGroup value)
         {
         }
 
         // DELETE api/<ContactGroupController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{contactGroupId}")]
+        public void Delete(int contactGroupId)
         {
         }
     }
