@@ -23,6 +23,6 @@ namespace Contacts.Api.Services.Interfaces
 
         Task<bool> DeleteContactGroup(int contactId);
 
-        Task<bool> AddContactToContactGroup(int ContactId, int ContactGroupId);
+        
     }
 }

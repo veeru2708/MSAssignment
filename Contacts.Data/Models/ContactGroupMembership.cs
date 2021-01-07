@@ -2,11 +2,13 @@
 {
     public class ContactGroupMembership
     {
-        public int GroupMembershipId { get; set; }
+        public int ContactGroupMembershipId { get; set; }
 
-        public int ParentId { get; set; }
+        public int ParentContactGroupId { get; set; }
 
-        public int ChildId { get; set; }
+        public int ContactGroupId { get; set; }
+
+        public int ContactId { get; set; }
 
         public string MemberShipType { get; set; }
     }

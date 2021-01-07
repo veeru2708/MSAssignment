@@ -36,7 +36,11 @@ namespace Contacts.Api
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(context => { context.UseInMemoryDatabase("Contact Book"); });
             services.AddTransient<IContactService, ContactService>();
+            services.AddTransient<IContactGroupService, ContactGroupService>();
+            services.AddTransient<IContactGroupMembershipService, ContactGroupMembershipService>();
             services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddTransient<IContactGroupRepository, ContactGroupRepository>();
+            services.AddTransient<IContactGroupMembershipRepository, ContactGroupMembershipRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>

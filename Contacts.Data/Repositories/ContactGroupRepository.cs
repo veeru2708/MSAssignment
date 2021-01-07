@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Contacts.Data.Repositories
 {
-    class ContactGroupRepository : RepositoryBase<ContactGroup>, IContactGroupRepository
+    public class ContactGroupRepository : RepositoryBase<ContactGroup>, IContactGroupRepository
     {
 
         private const string ContactType = "Contact";
@@ -60,9 +60,8 @@ namespace Contacts.Data.Repositories
 
         public async Task<ContactGroup> GetContactGroups(Func<ContactGroup, bool> condition)
         {
-            return FindByCondition(contactGroup => contactGroup.ContactGroupId.Equals(condition))
-               .DefaultIfEmpty(new ContactGroup())
-               .FirstOrDefault();
+            return RepositoryContext.ContactGroups.Find(condition);
+               
         }
 
         public async Task<ContactGroup> GetContactGroupById(int contactGroupId)

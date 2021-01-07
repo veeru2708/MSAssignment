@@ -20,11 +20,13 @@ namespace Contacts.Api.Controllers
     public class ContactGroupController : ControllerBase
     {
         private readonly IContactGroupService _contactGroupService;
+        private readonly IContactGroupMembershipService _contactGroupMembershipService;
         private readonly ILogger<ContactGroupController> _logger;
 
-        public ContactGroupController(IContactGroupService contactGroupService, ILogger<ContactGroupController> logger)
+        public ContactGroupController(IContactGroupService contactGroupService, IContactGroupMembershipService contactGroupMembershipService, ILogger<ContactGroupController> logger)
         {
             this._contactGroupService = contactGroupService;
+            this._contactGroupMembershipService = contactGroupMembershipService;
             this._logger = logger;
         }
         // GET: api/<ContactGroupController>
@@ -149,24 +151,37 @@ namespace Contacts.Api.Controllers
             return NoContent();
         }
 
-
-        [HttpPost]
-        [Route("{ContactGroupId}/Contact/{ContactId}")]
-        public void AddContactToContactGroup(int ContactId, int ContactGroupId)
+        [HttpGet]
+        [Route("{parentContactGroupId}")]
+        public async Task<IQueryable<ContactGroupMembership>> GetContactGroupMembershipByParentContactGroupId(int parentContactGroupId)
         {
+            var contactGroupMembership = await _contactGroupMembershipService.GetContactGroupMembershipByParentContactGroupId(parentContactGroupId);
+            return contactGroupMembership;
+        }
 
+        [HttpGet]
+        public async Task<ContactGroupMembershipDomain> GetContactGroupMembership([FromQuery] ContactGroupMembershipQueryParameters contactGroupMembershipQueryParameters)
+        {
+            return await _contactGroupMembershipService.GetContactGroupMembership(contactGroupMembershipQueryParameters);
         }
 
         [HttpPost]
         [Route("{ContactGroupId}/Contact/{ContactId}")]
-        public void RemoveContactToContactGroup(int ContactId, int ContactGroupId)
+        public void AddContactToContactGroup(int contactId, int contactGroupId)
+        {
+            this._contactGroupMembershipService.AddContactToContactGroup(contactId, contactGroupId);
+        }
+
+        [HttpPost]
+        [Route("{ContactGroupId}/Contact/{ContactId}")]
+        public void RemoveContactToContactGroup(int contactId, int contactGroupId)
         {
 
         }
 
         [HttpPost]
         [Route("{ParentContactGroupId}/ContactGroup/{ChildContactGroupId}")]
-        public void RemoveContactGroupToContactGroup(int ChildContactGroupId, int ParentContactGroupId)
+        public void AddContactGroupToContactGroup(int childContactGroupId, int parentContactGroupId)
         {
 
         }
