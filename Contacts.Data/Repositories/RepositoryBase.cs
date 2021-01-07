@@ -18,15 +18,11 @@ namespace Contacts.Data.Repositories
 
         public IQueryable<T> FindAll()
         {
-            var test = this.RepositoryContext.Set<T>().Local.AsQueryable();
             return this.RepositoryContext.Set<T>().Local.AsQueryable();
-                
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            var test = this.RepositoryContext.Set<T>().Local;
-
             return this.RepositoryContext.Set<T>().Local.AsQueryable()
                 .Where(expression)
                 .AsNoTracking();
